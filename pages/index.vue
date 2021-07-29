@@ -2,7 +2,7 @@
   <div>
     <header>
       <nav>
-        <div class = "container_botao">
+        <div class="container_botao">
           <ul class="botoes">
             <li><a href="#">Login</a></li>
             <li><a href="#">Contato</a></li>
@@ -10,41 +10,75 @@
         </div>
       </nav>
     </header>
-    <div class = "container_body">
-      <img src="~/assets/geferson.png" />
-      <form>
-        <input
-          type="Search"
-          placeholder="Procure por seus filmes, séries, animes...."
-          name="Search"
-        /><br />
-        <button type="submit">Pesquisar</button>
-      </form>
+    <div class="container_body">
+      <img class="main_logo" v-if="this.showLogo" src="~/assets/geferson.png" />
+      <input
+        type="Search"
+        placeholder="Procure por seus filmes, séries, animes...."
+        name="Search"
+      /><br />
+      <button @click="buscar" id="submit">Pesquisar</button>
+    </div>
+    <div class="respostas_container">
+      <ul class="respostas">
+        <li class="item-frame" :key="item" v-for="item in this.valores">
+          <img class="thumbnails" :src="pirarucu" />
+          {{ item }}
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+function goToResultado() {
+  this.$router.push("./resultado");
+}
+export default {
+  data: () => {
+    return {
+      valores: [],
+      pirarucu: "",
+      showLogo: true,
+    };
+  },
+  methods: {
+    buscar() {
+      this.pirarucu = "_nuxt/assets/placeholder.png";
+      this.valores = [
+        "As Crônicas de Nárnia: O Leão, A Feiticeira e o Guarda-Roupa",
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+      ];
+      this.showLogo = false;
+    },
+  },
+};
 </script>
 
 <style scoped>
-
-.container_botao{
-  display: flex;  
+.container_botao {
+  display: flex;
   align-content: center;
   align-items: center;
-  flex-direction: row-reverse; 
+  flex-direction: row-reverse;
 }
 
-.container_body{  
+.container_body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 }
 
-.botoes{
+.botoes {
   display: flex;
 }
 
@@ -63,14 +97,41 @@ li a:hover {
 
 input {
   @apply rounded-2xl p-2.5 text-left m-8 border-2;
-  	width: 70rem;
+  width: 70rem;
 }
 
 button {
-  @apply w-96 h-auto ml-96 border-2 text-base p-2.5 rounded-2xl cursor-pointer;
+  @apply w-96 h-auto border-2 text-base p-2.5 rounded-2xl cursor-pointer;
 }
 
-img {
+.main_logo {
   @apply h-auto w-1/2;
+}
+
+.respostas_container {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: flex-start;
+  align-items: center;
+}
+
+.respostas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  @apply w-full h-auto;
+}
+
+.item-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  @apply w-1/5 h-auto bg-gray-300 m-10 cursor-pointer rounded-3xl;
+}
+
+.thumbnails {
+  display: flex;
+  @apply w-4/6 h-auto rounded-3xl;
 }
 </style>
