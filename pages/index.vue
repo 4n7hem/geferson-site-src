@@ -10,7 +10,7 @@
         </div>
       </nav>
     </header>
-    <div class="container_body">
+    <div class="container_body" v-if="!hideSearch">
       <img class="main_logo" v-if="this.showLogo" src="~/assets/geferson.png" />
       <input
         type="Search"
@@ -19,13 +19,21 @@
       /><br />
       <button @click="buscar" id="submit">Pesquisar</button>
     </div>
-    <div class="respostas_container">
+    <div class="respostas_container" v-if="notSelected">
       <ul class="respostas">
-        <li class="item-frame" :key="item" v-for="item in this.valores">
-          <img class="thumbnails" :src="pirarucu" />
-          {{ item }}
+        <li
+          class="item-frame"
+          :key="item"
+          v-for="item in this.valores"
+          @click="queryDoSelecionado"
+        >
+          <img class="thumbnails" :src="item.image || pirarucu" />
+          {{ item.name }}
         </li>
       </ul>
+    </div>
+    <div class="selecionado_container" v-if="hideSearch">
+      <button @click="voltar" id="submit">Voltar</button>
     </div>
   </div>
 </template>
@@ -40,25 +48,41 @@ export default {
       valores: [],
       pirarucu: "",
       showLogo: true,
+      notSelected: true,
+      hideSearch: false,
     };
   },
   methods: {
     buscar() {
       this.pirarucu = "_nuxt/assets/placeholder.png";
       this.valores = [
-        "As Crônicas de Nárnia: O Leão, A Feiticeira e o Guarda-Roupa",
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
+        {
+          name: "As Crônicas de Nárnia: O Leão, A Feiticeira e o Guarda-Roupa",
+          image:
+            "https://br.web.img3.acsta.net/medias/nmedia/18/90/59/44/20103781.jpg",
+        },
+        { name: 2 },
+        { name: 3 },
+        { name: 4 },
+        { name: 5 },
+        { name: 6 },
+        { name: 7 },
+        { name: 8 },
+        { name: 9 },
+        { name: 10 },
+        { name: 11 },
       ];
       this.showLogo = false;
+      this.notSelected = true; 
+    },
+    queryDoSelecionado() {
+      this.notSelected = false;
+      this.hideSearch = true;
+    },
+    voltar() {      
+      this.showLogo = true; 
+      this.hideSearch = false;
+                
     },
   },
 };
