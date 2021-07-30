@@ -1,29 +1,23 @@
 <template>
   <div>
     <header>
-      <img src="~/assets/geferson.png" @click="clickLogo()"/>
+      <img class="logo_main" src="~/assets/geferson.png" @click="clickLogo()" />
       <nav>
         <div class="container_botao">
           <ul class="botoes">
-            <li><a 
-              class="text-white header-menu" 
-              href="#"
-            >
-              Login
-            </a></li>
-            <li><a 
-              class="text-white header-menu" 
-              href="#"
-            >
-              Contato
-            </a></li>
+            <li><a class="text-white header-menu" href="#"> Login </a></li>
+            <li><a class="text-white header-menu" href="#"> Contato </a></li>
           </ul>
         </div>
       </nav>
     </header>
 
     <div class="container_body" v-if="!hideSearch">
-      <img class="main_logo" v-if="this.showLogo" src="https://i.pinimg.com/originals/a0/6f/e2/a06fe237110e6da70fefe36b99f3c681.gif" />
+      <img
+        class="main_logo"
+        v-if="this.showLogo"
+        src="https://i.pinimg.com/originals/a0/6f/e2/a06fe237110e6da70fefe36b99f3c681.gif"
+      />
       <input
         type="Search"
         placeholder="Procure por seus filmes, séries, animes...."
@@ -51,7 +45,7 @@
     <div class="movie-details" v-if="hideSearch">
       <button class="button-voltar" @click="voltar" id="submit">Voltar</button>
       <div class="details-row-1">
-        <h1 class="movie-title">{{currentMovie.name}}</h1>
+        <h1 class="movie-title">{{ currentMovie.name }}</h1>
         <div>
           <div class="container-streamings">
             Disponivel em:
@@ -76,7 +70,7 @@
             :key="key"
           >
             <img class="streamings" :src="`${key}.png`" />
-            {{value}}
+            {{ value }}
           </div>
         </div>
         <div>
@@ -85,7 +79,7 @@
             v-for="(commentary, index) in currentMovie.comments"
             :key="index"
           >
-            {{commentary}}
+            {{ commentary }}
           </div>
         </div>
       </div>
@@ -100,7 +94,7 @@ function goToResultado() {
 export default {
   data: () => {
     return {
-      search: '',
+      search: "",
       valores: [],
       pirarucu: "",
       showLogo: true,
@@ -109,51 +103,46 @@ export default {
       currentMovie: {},
       database: [
         {
-          name: 'narnia',
-          streamings: [
-            'netflix',
-            'amazon',
-            'hbo',
-            'disney',
-          ],
+          name: "narnia",
+          streamings: ["netflix", "amazon", "hbo", "disney"],
           rates: {
             imdb: 8,
             rotten: 79,
           },
           comments: [
-            'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
-            'Lorem ipsum dolor sit amet.'
+            "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
+            "Lorem ipsum dolor sit amet.",
           ],
           image:
             "https://br.web.img3.acsta.net/medias/nmedia/18/90/59/44/20103781.jpg",
         },
         {
-          name: 'narnia',
+          name: "narnia",
           image:
             "https://http2.mlstatic.com/D_NQ_NP_975889-MLB44424533206_122020-O.jpg",
         },
         {
-          name: 'joker',
+          name: "joker",
           image:
             "https://i.pinimg.com/736x/fe/e7/ea/fee7eab62f787cf7bbd3aa3cce3ac833.jpg",
         },
         {
-          name: 'dora',
+          name: "dora",
           image:
             "https://img.moviepostershop.com/dora-and-the-lost-city-of-gold-movie-poster-1000779403.jpg",
         },
         {
-          name: 'avengers',
+          name: "avengers",
           image:
             "https://cdn11.bigcommerce.com/s-ydriczk/images/stencil/608x608/products/88997/93196/Avengers-Endgame-Final-Style-Poster-buy-original-movie-posters-at-starstills__42370.1563973516.jpg?c=2",
         },
         {
-          name: 'pantera negra',
+          name: "pantera negra",
           image:
             "https://www.washingtonpost.com/graphics/2019/entertainment/oscar-nominees-movie-poster-design/img/black-panther-web.jpg",
         },
         {
-          name: 'pulp fiction',
+          name: "pulp fiction",
           image:
             "https://cdn.shopify.com/s/files/1/0057/3728/3618/products/950e439404c3d5eddd86ae876cec83bf_949b5045-2503-4883-bcd2-ff1f31f5b14c_240x360_crop_center.progressive.jpg?v=1573588746",
         },
@@ -167,28 +156,33 @@ export default {
     },
     buscar() {
       this.pirarucu = "_nuxt/assets/placeholder.png";
-      this.valores = this.database.filter(movie => movie.name === this.search);
+      this.valores = this.database.filter(
+        (movie) => movie.name === this.search
+      );
       this.showLogo = false;
-      this.notSelected = true; 
-      if (this.search === '') {
-        this.valores = this.database
+      this.notSelected = true;
+      if (this.search === "") {
+        this.valores = this.database;
       }
     },
     queryDoSelecionado(selectedMovie) {
-      this.currentMovie = selectedMovie
+      this.currentMovie = selectedMovie;
       this.notSelected = false;
       this.hideSearch = true;
     },
-    voltar() {      
-      this.showLogo = true; 
+    voltar() {
+      this.showLogo = true;
       this.hideSearch = false;
-                
     },
   },
 };
 </script>
 
 <style scoped>
+.logo_main {
+  @apply cursor-pointer;
+}
+
 .container_botao {
   display: flex;
   align-content: center;
@@ -206,7 +200,6 @@ export default {
   display: flex;
   margin-top: 10px;
 }
-
 
 header {
   @apply h-28 bg-red-800;
@@ -277,7 +270,7 @@ button {
 }
 
 .thumbnails {
-  @apply w-auto  rounded-3xl max-h-80;
+  @apply w-auto rounded-3xl max-h-80 cursor-pointer;;
 }
 
 .container-streamings {
