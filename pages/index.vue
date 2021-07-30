@@ -73,9 +73,10 @@
             {{ value }}
           </div>
         </div>
-        <div>
-          Comentários
-          <div
+        <div >
+          <h1 class="titulo_comentarios">Comentários</h1>
+          <div class="linha"></div>
+          <div class="card_comentario"
             v-for="(commentary, index) in currentMovie.comments"
             :key="index"
           >
@@ -107,7 +108,7 @@ export default {
           streamings: ["netflix", "amazon", "hbo", "disney"],
           rates: {
             imdb: 8,
-            rotten: 79,
+            rotten: "79%",
           },
           comments: [
             "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
@@ -270,19 +271,20 @@ button {
 }
 
 .thumbnails {
-  @apply w-auto rounded-3xl max-h-80 cursor-pointer;;
+  @apply w-auto rounded-3xl max-h-80 cursor-pointer;
 }
 
-.container-streamings {
+.container-streamings {   
   display: flex;
   flex-direction: column;
 }
 
 .streamings {
-  @apply w-auto max-h-10;
+  @apply w-auto max-h-10 mr-4;
 }
 
 .movie-details {
+  @apply bg-gray-200 rounded-3xl;
   margin: 5vw;
   display: flex;
   flex-direction: column;
@@ -300,14 +302,43 @@ button {
   flex-direction: row;
 }
 
+.flex-1{
+  display:flex;
+  flex-direction: row;
+  @apply text-3xl p-3 font-bold;  
+  align-items: center;
+}
+
 .details-row-1 {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; 
+  @apply ml-24 mr-24; 
 }
 
 .button-voltar {
   border: none;
   width: 5vw;
   background-color: rgb(221, 161, 161);
+  @apply m-2.5;
 }
+
+.content-center{
+  @apply ml-24;
+}
+
+.linha{
+  @apply w-5/6 h-1 bg-black rounded-3xl;
+}
+
+.titulo_comentarios{
+  text-transform: uppercase;
+  @apply text-4xl font-bold; 
+}
+
+.card_comentario{
+  display:flex;
+  flex-direction: column;  
+  @apply h-36 w-2/3 bg-gray-500 m-8 rounded-2xl text-3xl p-6;
+}
+
 </style>
